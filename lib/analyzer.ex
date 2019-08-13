@@ -1,18 +1,12 @@
 defmodule Analyzer do
-  @moduledoc """
-  Documentation for Analyzer.
-  """
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Analyzer.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def start(url, token) do
+    get_issues(url, token) |> Analyzer.IssueTracker.list()
   end
+
+  def get_issues(url, token) do
+    headers = [{:"Authorization", "token #{token}"}]
+    Analyzer.RequestManager.get(url, headers)
+  end
+
 end
